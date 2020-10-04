@@ -1,0 +1,39 @@
+import pyautogui
+import time
+count = 0
+counta= 65
+countb = 65
+
+countc = 65
+countd = 65
+p = pyautogui
+seven = input("number/Letter ")
+if seven == "n":
+  for x in range (100000000) :
+   
+      p.write(str(count).zfill(6))
+      p.press("enter")
+      count+=1
+if seven == "l":
+  time.sleep(3)
+  for x in range (100000000):
+      p.write(chr(counta))
+      p.write(chr(countb))
+      p.write(chr(countc))
+      p.write(chr(countd))
+      p.press("space")
+      countd+=1
+
+
+        
+      if countd == 90:
+          countd = 65
+          countc +=1
+      if countc == 90:
+          countc = 65
+          countb += 1
+      if countb == 90:
+          countb = 65
+          counta +=1
+
+    
