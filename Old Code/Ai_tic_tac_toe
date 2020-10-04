@@ -1,0 +1,576 @@
+import pygame
+pygame.font.init()
+import random as rand
+import time as t
+
+from tkinter import *
+from tkinter import messagebox
+
+board1 = ['-', '-', '-']
+board2 = ['-', '-', '-']
+board3 = ['-', '-', '-']
+donep = []
+doneai = []
+pygame.init()
+
+screen = pygame.display.set_mode((300,300))
+lists = ["ul", "uc", "ur", "cl", "cc", "cr", "dl", "dc", "dr"]
+running = True
+done = False
+def readboards():
+    pygame.display.flip()
+    if board1[0] == 1:
+        pygame.draw.circle(screen, (255, 0, 0), (50, 50), 38, 1)
+    if board1[1] == 1:
+        pygame.draw.circle(screen, (255, 0, 0), (150, 50), 38, 1)
+    if board1[2] == 1:
+        pygame.draw.circle(screen, (255, 0, 0), (250, 50), 38, 1)
+    if board1[0] == 0:
+        pygame.draw.circle(screen, (100, 100, 250), (50, 50), 38, 1)
+    if board1[1] == 0:
+        pygame.draw.circle(screen, (100, 100, 250), (150, 50), 38, 1)
+    if board1[2] == 0:
+        pygame.draw.circle(screen, (100, 100, 250), (250, 50), 38, 1)
+    if board2[0] == 1:
+        pygame.draw.circle(screen, (255, 0, 0), (50, 150), 38, 1)
+    if board2[1] == 1:
+        pygame.draw.circle(screen, (255, 0, 0), (150, 150), 38, 1)
+    if board2[2] == 1:
+        pygame.draw.circle(screen, (255, 0, 0), (250, 150), 38, 1)
+    if board2[0] == 0:
+        pygame.draw.circle(screen, (100, 100, 250), (50, 150), 38, 1)
+    if board2[1] == 0:
+        pygame.draw.circle(screen, (100, 100, 250), (150, 150), 38, 1)
+    if board2[2] == 0:
+        pygame.draw.circle(screen, (100, 100, 250), (250, 150), 38, 1)
+    if board3[0] == 1:
+        pygame.draw.circle(screen, (255, 0, 0), (50, 250), 38, 1)
+    if board3[1] == 1:
+        pygame.draw.circle(screen, (255, 0, 0), (150, 250), 38, 1)
+    if board3[2] == 1:
+        pygame.draw.circle(screen, (255, 0, 0), (250, 250), 38, 1)
+    if board3[0] == 0:
+        pygame.draw.circle(screen, (100, 100, 250), (50, 250), 38, 1)
+    if board3[1] == 0:
+        pygame.draw.circle(screen, (100, 100, 250), (150, 250), 38, 1)
+    if board3[2] == 0:
+        pygame.draw.circle(screen, (100, 100, 250), (250, 250), 38, 1)
+
+    pygame.display.flip()
+def ai():
+    global done
+
+    res = [ele for ele in lists]
+    if done == True:
+        t.sleep(0.1)
+        pygame.display.set_caption("Tic-Tac-Toe")
+        if board1[2] == 1 and board2[1] == 1 and "dl" not in donep:
+            # diagnol
+            # - - 0
+            # - 0 -
+            # - - -
+            del board3[0]
+            board3.insert(0, 1)
+            donep.append("dl")
+        elif board2[1] == 1 and board3[0] == 1 and "ur" not in donep:
+            # diagnol
+        # - - 0
+        # - 0 -
+        # - - -
+            del board1[2]
+            board1.insert(2, 1)
+            donep.append("ur")
+        elif board1[0] == 1 and board3[2] == 1 and "cc" not in donep:
+            del board2[1]
+            board2.insert(1, 1)
+            donep.append("cc")
+        elif board1[0] == 1 and board2[1] == 1 and "dr" not in donep:
+        # diagnol
+        # - - -
+        # - 0 -
+        # 0 - -
+            del board3[2]
+            board3.insert(2, 1)
+            donep.append("dr")
+        elif board2[1] == 1 and board3[2] == 1 and "ul" not in donep:
+            # diagnol
+        # - - -
+        # - 0 -
+        # 0 - -
+            del board1[0]
+            board1.insert(0, 1)
+            donep.append("ul")
+        elif board3[0] == 1 and board1[2] == 1 and "cc" not in donep:
+            del board2[1]
+            board2.insert(1, 1)
+            donep.append("cc")
+        elif board1 == [1, 1, '-'] and "ur" not in donep:
+            # across top
+        # 0 0 -
+            del board1[2]
+            board1.insert(2, 1)
+            donep.append("ur")
+        elif board1 == ['-', 1, 1] and "ul" not in donep:
+        # across top
+        # 0 0 -
+            del board1[0]
+            board1.insert(0, 1)
+            donep.append("ul")
+        elif board1 == [1, '-', 1] and "uc" not in donep:
+            del board1[1]
+            board1.insert(1, 1)
+            donep.append("uc")
+        elif board2 == [1, 1, '-'] and "cr" not in donep:
+        # across top
+        # 0 0 -
+            del board2[2]
+            board2.insert(2, 1)
+            donep.append("cr")
+        elif board2 == ['-', 1, 1] and "cl" not in donep:
+        # across top
+        # 0 0 -
+            del board2[0]
+            board2.insert(0, 1)
+            donep.append("cl")
+        elif board2 == [1, '-', 1] and "cc" not in donep:
+            del board2[1]
+            board2.insert(1, 1)
+            donep.append("cc")
+        elif board3 == [1, 1, '-'] and "dl" not in donep:
+        # across top
+        # 0 0 -
+            del board3[2]
+            board3.insert(2, 1)
+            donep.append("dl")
+        elif board3 == ['-', 1, 1] and "dr" not in donep:
+        # across top
+        # 0 0 -
+            del board3[0]
+            board3.insert(0, 1)
+            donep.append("dr")
+        elif board3 == [1, '-', 1] and "dc" not in donep:
+            del board3[1]
+            board3.insert(1, 1)
+            donep.append("dc")
+        elif board1[0] == 1 and board2[0] == 1 and "dl" not in donep:
+            # accross side
+            del board3[0]
+            board3.insert(0, 1)
+            donep.append("dl")
+        elif board2[0] == 1 and board3[0] == 1 and "ur" not in donep:
+        # accross side
+            del board1[0]
+            board1.insert(0, 1)
+            donep.append("ur")
+        elif board1[0] == 1 and board3[0] == 1 and "cl" not in donep:
+            del board2[0]
+            board2.insert(0, 1)
+            donep.append("cr")
+        elif board1[1] == 1 and board2[1] == 1 and "dc" not in donep:
+            # accross side
+            del board3[1]
+            board3.insert(1, 1)
+            donep.append("dc")
+        elif board2[1] == 1 and board3[1] == 1 and "uc" not in donep:
+            # accross side
+            del board1[1]
+            board1.insert(1, 1)
+            donep.append("uc")
+        elif board1[1] == 1 and board3[1] == 1 and "cc" not in donep:
+            del board2[1]
+            board2.insert(1, 1)
+            donep.append("cc")
+        elif board1[2] == 1 and board2[2] == 1 and "dr" not in donep:
+            # accross side
+            del board3[2]
+            board3.insert(2, 1)
+            donep.append("dr")
+        elif board2[2] == 1 and board3[2] == 1 and "ur" not in donep:
+        # accross side
+            del board1[2]
+            board1.insert(2, 1)
+            donep.append("ur")
+        elif board1[2] == 1 and board3[2] == 1 and "cr" not in donep:
+            del board2[2]
+            board2.insert(2, 1)
+            donep.append("cr")
+        elif board1[2] == 0 and board2[1] == 0 and "dl" not in donep:
+        # diagnol
+        # - - 0
+        # - 0 -
+        # - - -
+            del board3[0]
+            board3.insert(0, 1)
+            donep.append("dl")
+        elif board2[1] == 0 and board3[0] == 0 and "ur" not in donep:
+        # diagnol
+        # - - 0
+        # - 0 -
+        # - - -
+            del board1[2]
+            board1.insert(2, 1)
+            donep.append("ur")
+        elif board1[0] == 0 and board3[2] == 0 and "cc" not in donep:
+            del board2[1]
+            board2.insert(1, 1)
+            donep.append("cc")
+        elif board1[0] == 0 and board2[1] == 0 and "dr" not in donep:
+        # diagnol
+        # - - -
+        # - 0 -
+        # 0 - -
+            del board3[2]
+            board3.insert(2, 1)
+            donep.append("dr")
+        elif board2[1] == 0 and board3[2] == 0 and "ul" not in donep:
+        # diagnol
+        # - - -
+        # - 0 -
+        # 0 - -
+            del board1[0]
+            board1.insert(0, 1)
+            donep.append("ul")
+        elif board3[0] == 0 and board1[2] == 0 and "cc" not in donep:
+            del board2[1]
+            board2.insert(1, 1)
+            donep.append("cc")
+        elif board1 == [0, 0, '-'] and "ur" not in donep:
+        # across top
+        # 0 0 -
+            del board1[2]
+            board1.insert(2, 1)
+            donep.append("ur")
+        elif board1 == ['-', 0, 0] and "ul" not in donep:
+        # across top
+        # 0 0 -
+            del board1[0]
+            board1.insert(0, 1)
+            donep.append("ul")
+        elif board1 == [0, '-', 0] and "uc" not in donep:
+            del board1[1]
+            board1.insert(1, 1)
+            donep.append("uc")
+        elif board2 == [0, 0, '-'] and "cr" not in donep:
+        # across top
+        # 0 0 -
+            del board2[2]
+            board2.insert(2, 1)
+            donep.append("cr")
+        elif board2 == ['-', 0, 0] and "cl" not in donep:
+        # across top
+        # 0 0 -
+            del board2[0]
+            board2.insert(0, 1)
+            donep.append("cl")
+        elif board2 == [0, '-', 0] and "cc" not in donep:
+            del board2[1]
+            board2.insert(1, 1)
+            donep.append("cc")
+        elif board3 == [0, 0, '-'] and "dl" not in donep:
+        # across top
+        # 0 0 -
+            del board3[2]
+            board3.insert(2, 1)
+            donep.append("dl")
+        elif board3 == ['-', 0, 0] and "dr" not in donep:
+        # across top
+        # 0 0 -
+            del board3[0]
+            board3.insert(0, 1)
+            donep.append("dr")
+        elif board3 == [0, '-', 0] and "dc" not in donep:
+            del board3[1]
+            board3.insert(1, 1)
+            donep.append("dc")
+        elif board1[0] == 0 and board2[0] == 0 and "dl" not in donep:
+        # accross side
+            del board3[0]
+            board3.insert(0, 1)
+            donep.append("dl")
+        elif board2[0] == 0 and board3[0] == 0 and "ur" not in donep:
+        # accross side
+            del board1[0]
+            board1.insert(0, 1)
+            donep.append("ur")
+        elif board1[0] == 0 and board3[0] == 0 and "cl" not in donep:
+            del board2[0]
+            board2.insert(0, 1)
+            donep.append("cl")
+        elif board1[1] == 0 and board2[1] == 0 and "dc" not in donep:
+        # accross side
+            del board3[1]
+            board3.insert(1, 1)
+            donep.append("dc")
+        elif board2[1] == 0 and board3[1] == 0 and "uc" not in donep:
+            # accross side
+            del board1[1]
+            board1.insert(1, 1)
+            donep.append("uc")
+        elif board1[1] == 0 and board3[1] == 0 and "cc" not in donep:
+            del board2[1]
+            board2.insert(1, 1)
+            donep.append("cc")
+        elif board1[2] == 0 and board2[2] == 0 and "dr" not in donep:
+        # accross side
+            del board3[2]
+            board3.insert(2, 1)
+            donep.append("dr")
+        elif board2[2] == 0 and board3[2] == 0 and "ur" not in donep:
+        # accross side
+            del board1[2]
+            board1.insert(2, 1)
+            donep.append("ur")
+        elif board1[2] == 0 and board3[2] == 0 and "cr" not in donep:
+            del board2[2]
+            board2.insert(2, 1)
+            donep.append("cr")
+        elif board1[0] == 0 and "cc" not in donep:
+            del board2[1]
+            board2.insert(1, 1)
+            donep.append("cc")
+        elif board1[2] == 0 and "cc" not in donep:
+            del board2[1]
+            board2.insert(1, 1)
+            donep.append("cc")
+        elif board3[0] == 0 and "cc" not in donep:
+            del board2[1]
+            board2.insert(1, 1)
+            donep.append("cc")
+        elif board3[2] == 0 and "cc" not in donep:
+            del board2[1]
+            board2.insert(1, 1)
+            donep.append("cc")
+        elif "ur" not in donep:
+            del board1[2]
+            board1.insert(2, 1)
+            donep.append("ur")
+        elif "ul" not in donep:
+            del board1[0]
+            board1.insert(0, 1)
+            donep.append("ul")
+        elif "dr" not in donep:
+            del board3[2]
+            board3.insert(2, 1)
+            donep.append("dr")
+        elif "dl" not in donep:
+            del board3[0]
+            board3.insert(0, 1)
+            donep.append("dl")
+
+        else:
+            for a in donep:
+                if a in lists:
+                    res.remove(a)
+            random = res
+            board = rand.choice(random)
+            if board == "ul":
+                del board1[0]
+                board1.insert(0, 1)
+            if board == "uc":
+                del board1[1]
+                board1.insert(1, 1)
+            if board == "ur":
+                del board1[2]
+                board1.insert(2, 1)
+            if board == "cl":
+                del board2[0]
+                board2.insert(0, 1)
+            if board == "cc":
+                del board2[1]
+                board2.insert(1, 1)
+            if board == "cr":
+                del board2[2]
+                board2.insert(2, 1)
+            if board == "dl":
+                del board3[0]
+                board3.insert(0, 1)
+            if board == "dc":
+                del board3[1]
+                board3.insert(1, 1)
+            if board == "dr":
+                del board3[2]
+                board3.insert(2, 1)
+            donep.append(board)
+            checkBoard()
+
+        done = False
+    player()
+def redo():
+    global running
+    running = 0
+    Tk().wm_withdraw()
+    messagebox.showinfo('You beat the odds and beat the AI', 'OK')
+    exit()
+def air():
+    global running
+    running = 0
+    Tk().wm_withdraw()
+    messagebox.showinfo('AI beat you, better luck next time!', 'OK')
+    exit()
+
+def draw():
+    global running
+    running = 0
+    Tk().wm_withdraw()
+    messagebox.showinfo('It\'s a draw', 'OK')
+    exit()
+
+
+def checkBoard():
+
+
+
+
+    if board1 == [0, 0, 0]:
+        pygame.display.set_caption("You won!")
+        redo()
+    elif board2 == [0, 0, 0]:
+        pygame.display.set_caption("You won!")
+        redo()
+    elif board3 == [0, 0, 0]:
+        pygame.display.set_caption("You won!")
+        redo()
+    elif board1[0] == 0 and board2[0] == 0 and board3[0] == 0:
+        pygame.display.set_caption("You won!")
+        redo()
+    elif board1[1] == 0 and board2[1] == 0 and board3[1] == 0:
+        pygame.display.set_caption("You won!")
+        redo()
+    elif board1[2] == 0 and board2[2] == 0 and board3[2] == 0:
+        pygame.display.set_caption("You won!")
+        redo()
+    elif board1[0] == 0 and board2[1] == 0 and board3[2] == 0:
+        pygame.display.set_caption("You won!")
+        redo()
+    elif board1[2] == 0 and board2[1] == 0 and board3[0] == 0:
+        pygame.display.set_caption("You won!")
+        redo()
+    elif board1 == [1, 1, 1]:
+        pygame.display.set_caption("Ai won, it's better than you")
+
+        air()
+    elif board2 == [1, 1, 1]:
+        pygame.display.set_caption("Ai won, it's better than you")
+
+        air()
+    elif board3 == [1, 1, 1]:
+        pygame.display.set_caption("Ai won, it's better than you")
+
+        air()
+    elif board1[0] == 1 and board2[0] == 1 and board3[0] == 1:
+        pygame.display.set_caption("Ai won, it's better than you")
+
+        air()
+    elif board1[1] == 1 and board2[1] == 1 and board3[1] == 1:
+        pygame.display.set_caption("Ai won, it's better than you")
+
+        air()
+    elif board1[2] == 1 and board2[2] == 1 and board3[2] == 1:
+        pygame.display.set_caption("Ai won, it's better than you")
+
+        air()
+    elif board1[0] == 1 and board2[1] == 1 and board3[2] == 1:
+        pygame.display.set_caption("Ai won, it's better than you")
+
+        air()
+    elif board1[2] == 1 and board2[1] == 1 and board3[0] == 1:
+        pygame.display.set_caption("Ai won, it's better than you")
+
+        air()
+    elif len(donep) == 9:
+        pygame.display.set_caption("Draw")
+        draw()
+def drawLines():
+    pygame.draw.line(screen, (0, 0, 0), (100, 0), (100, 300), 2)
+    pygame.draw.line(screen, (0, 0, 0), (200, 0), (200, 300), 2)
+
+    pygame.draw.line(screen, (0, 0, 0), (0, 100), (300, 100), 2)
+    pygame.draw.line(screen, (0, 0, 0), (0, 200), (300, 200), 2)
+screen.fill((100,100,100))
+pygame.display.set_caption("Tic-Tac-Toe")
+def player():
+    global done
+    global running
+    while running:
+        pos = pygame.mouse.get_pos()
+        event = pygame.event.poll()
+        if event.type == pygame.QUIT:
+            running = 0
+
+        drawLines()
+        if pygame.mouse.get_pressed()[0] and pos[0] <= 90 and pos[1] <= 90 and "ul" not in donep:
+            del board1[0]
+            board1.insert(0, 0)
+
+            donep.append("ul")
+            done = True
+        if pygame.mouse.get_pressed()[0] and pos[0] <= 90 and pos[1] <= 150 and pos[1] >= 100 and "cl" not in donep:
+            del board2[0]
+            board2.insert(0, 0)
+            donep.append("cl")
+            done = True
+        if pygame.mouse.get_pressed()[0] and pos[0] <= 90 and pos[1] <= 290 and pos[1] >= 230 and "dl" not in donep:
+
+            del board3[0]
+            board3.insert(0,0)
+            donep.append("dl")
+            done = True
+        if pygame.mouse.get_pressed()[0] and pos[0] <= 180 and pos[0] >= 100 and pos[1] <= 90 and "uc" not in donep:
+            del board1[1]
+            board1.insert(1,0)
+            donep.append("uc")
+            done = True
+        if pygame.mouse.get_pressed()[0] and pos[0] <= 180 and pos[0] >= 100 and pos[1] <= 150 and pos[1] >= 100 and "cc" not in donep:
+
+            del board2[1]
+            board2.insert(1,0)
+            donep.append("cc")
+            done = True
+        if pygame.mouse.get_pressed()[0] and pos[0] <= 180 and pos[0] >= 100 and pos[1] <= 290 and pos[1] >= 230 and "dc" not in donep:
+
+            del board3[1]
+            board3.insert(1,0)
+            donep.append("dc")
+            done = True
+        if pygame.mouse.get_pressed()[0] and pos[0] <= 300 and pos[0] >= 220 and pos[1] <= 90 and "ur" not in donep:
+            del board1[2]
+            board1.insert(2,0)
+            donep.append("ur")
+            done = True
+        if pygame.mouse.get_pressed()[0] and pos[0] <= 300 and pos[0] >= 220 and pos[1] <= 150 and pos[1] >= 100 and "cr" not in donep:
+
+            del board2[2]
+            board2.insert(2,0)
+            donep.append("cr")
+            done = True
+        if pygame.mouse.get_pressed()[0] and pos[0] <= 300 and pos[0] >= 220and pos[1] <= 290 and pos[1] >= 230 and "dr" not in donep:
+
+            del board3[2]
+            board3.insert(2,0)
+            donep.append("dr")
+            done = True
+
+        pygame.display.flip()
+        readboards()
+        checkBoard()
+        if done == True:
+
+
+            ai()
+
+
+
+
+
+
+
+while True:
+
+    who = rand.randint(1,2)
+    if who == 1:
+        done = True
+        ai()
+
+    else:
+        player()
+
