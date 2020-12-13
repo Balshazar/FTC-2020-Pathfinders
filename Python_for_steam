@@ -1,0 +1,75 @@
+#For Tech:
+
+#Setting up python:
+#NEED TO WORK ON!!!!!!
+#Hello World:
+print("Hello World")
+print("I am Bob")
+
+#Strings:
+name = "Kalya"
+print(name)
+
+#Numbers:
+age = 12
+print(age)
+
+#Input:
+print("Hello")
+name = input("What is your name?")
+print("Hello " + name)
+
+#Manipulation:
+
+name = "Kalya"
+name = name + " is cool."
+name += " is cool."
+print(name)
+
+#Other manipulation:
+
+age = 10
+age += 5
+print(age)
+
+#If, elif, else:
+
+age = 12
+if age > 18:
+    print("You can drive!!!")
+
+else:
+    print("Sorry your not old enough")
+#Loops:
+
+for x in range(10):
+    print(x)
+
+#While Loops:
+loop = 0
+while loop < 10:
+    loop += 1
+    print(loop)
+
+#First test:
+#Have a program ask for your age, and then add 10 to it and see if it is greater
+#than 20. If it is, print yes and if it isn't print no
+
+age = input("What is your age? ")
+age += 10
+if age > 20:
+    print("Yes!")
+else:
+    print("No")
+
+
+#Importing modules
+import random
+print(random.randint(1,20))
+
+import time
+print("Hey")
+time.sleep(1)
+print("One second later")
+
+#
